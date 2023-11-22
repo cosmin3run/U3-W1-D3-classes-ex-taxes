@@ -15,7 +15,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var Tasse = /** @class */ (function () {
     function Tasse(_codredd, _redditoLordo, _tasseirpef, _tasseinps) {
-        this.codredd = 22;
         this.codredd = _codredd;
         this.redditoLordo = _redditoLordo;
         this.tasseirpef = _tasseirpef;
@@ -29,19 +28,19 @@ var Lavoratore = /** @class */ (function (_super) {
         return _super.call(this, _codredd, _redditoLordo, _tasseirpef, _tasseinps) || this;
     }
     Lavoratore.prototype.getUtileTasse = function () {
-        var utileTasse = (this.redditoLordo * this.codredd) / 100;
+        var utileTasse = this.redditoLordo - ((this.redditoLordo * this.codredd) / 100);
         return utileTasse;
     };
     Lavoratore.prototype.getTasseIrpef = function () {
-        var utileIrpef = this.getUtileTasse() * (this.tasseirpef / 100);
+        var utileIrpef = (this.getUtileTasse() * this.tasseirpef) / 100;
         return utileIrpef;
     };
     Lavoratore.prototype.getTasseInps = function () {
-        var utileInps = this.getUtileTasse() * (this.tasseinps / 100);
+        var utileInps = (this.getUtileTasse() * this.tasseinps) / 100;
         return utileInps;
     };
     Lavoratore.prototype.getRedditoNetto = function () {
-        var netto = this.redditoLordo - this.getUtileTasse() - this.getTasseIrpef() - this.getTasseInps();
+        var netto = this.getUtileTasse() - this.getTasseIrpef() - this.getTasseInps();
         return netto;
     };
     return Lavoratore;
@@ -68,7 +67,7 @@ console.log("L'artigiano dal reddito lordo di " +
     artigiano.getTasseIrpef() +
     "€, e le tasse Inps ammontano a " +
     artigiano.getTasseInps());
-var commerciante = new Lavoratore(22, 200000, 15, 35);
+var commerciante = new Lavoratore(22, 100000, 15, 35);
 console.log("Il commerciante dal reddito lordo di " +
     commerciante.redditoLordo +
     " ha un reddito annuo di " +

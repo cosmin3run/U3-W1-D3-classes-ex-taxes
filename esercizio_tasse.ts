@@ -1,5 +1,5 @@
 abstract class Tasse {
-  codredd: number = 22;
+  codredd: number;
   redditoLordo: number;
   tasseirpef: number;
   tasseinps: number;
@@ -22,19 +22,19 @@ class Lavoratore extends Tasse {
   }
 
   getUtileTasse(): any {
-    let utileTasse = (this.redditoLordo * this.codredd) / 100;
+    let utileTasse = this.redditoLordo - ((this.redditoLordo * this.codredd) / 100);
     return utileTasse;
   }
   getTasseIrpef(): any {
-    let utileIrpef = this.getUtileTasse() * (this.tasseirpef / 100);
+    let utileIrpef = (this.getUtileTasse() * this.tasseirpef) / 100;
     return utileIrpef;
   }
   getTasseInps(): any {
-    let utileInps = this.getUtileTasse() * (this.tasseinps / 100);
+    let utileInps = (this.getUtileTasse() * this.tasseinps) / 100;
     return utileInps;
   }
   getRedditoNetto(): any {
-    let netto = this.redditoLordo - this.getUtileTasse() - this.getTasseIrpef() - this.getTasseInps();
+    let netto = this.getUtileTasse() - this.getTasseIrpef() - this.getTasseInps();
     return netto;
   }
 }
@@ -66,7 +66,7 @@ artigiano.getTasseIrpef() +
 "€, e le tasse Inps ammontano a " +
 artigiano.getTasseInps());
 
-let commerciante = new Lavoratore(22, 200000, 15, 35);
+let commerciante = new Lavoratore(22, 100000, 15, 35);
 
 console.log("Il commerciante dal reddito lordo di " +
 commerciante.redditoLordo +
